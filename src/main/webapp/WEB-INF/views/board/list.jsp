@@ -39,7 +39,9 @@
 		 				${ar.num}
 		 			</td>
 		 			<td>
+		 			<a href="./detail?num=${ar.num}">
 		 				${ar.title}
+		 			</a>
 		 			</td>
 		 			<td>
 		 				${ar.writer}
