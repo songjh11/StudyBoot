@@ -14,24 +14,31 @@
 		<h1>Detail Page</h1>
 	</div>	
 	
-	<div style="display: flex; justify-content: center;" >
+	<div style="display: flex; justify-content: center; flex-direction: column;" >
 		<form action="" method="post" enctype="multipart/form-data">
-			<div>
-				${DTO.writer}
-			</div>
-			<div>
-				${DTO.title}
-			</div>
-			<div>
-				${DTO.contents}
-			</div>
-			<div>
-			<c:forEach items="${DTO.qf}" var="ar">
-				${ar.fileName}
-				<img src="../result/upload/qna/${ar.fileName}">
-			</c:forEach> 
-			</div>
-			
+			<div class="row py-lg-5">
+	      	<div class="col-lg-6 col-md-8 mx-auto">
+		        <h1 class="fw-light">제목: ${DTO.title}</h1>
+		        <h5 class="fw-light">작성자: ${DTO.writer}</h5>
+		        <p class="lead text-muted">내용: ${DTO.contents}</p>
+		    </div>
+		    </div>
+			<div class="container">
+		      <div>
+		        <div class="col">
+				        <c:forEach items="${DTO.qf}" var="ar">
+				          <div class="card shadow-sm">
+				            <img src="/file/qna/${ar.fileName}" width="100%" height="225"> 
+					            <div class="card-body">
+					              <p class="card-text">${ar.oriName}</p>
+					              <a href="/fileDown/qna?fileNum=7">qna down</a>
+					              <a href="/fileDown/notice?fileNum=7">notice down</a>
+					            </div>
+					          </div>
+			          	</c:forEach> 
+			        </div>
+                   </div>
+       		   </div>
 		</form>
 	</div>
 	

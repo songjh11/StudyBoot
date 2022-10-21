@@ -13,17 +13,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
+//@Rollback(true)
+@Transactional
 class QnaMapperTest {
 	
 //	private final Logger log = LoggerFactory.getLogger(this.getClass());
 //
-//	@Autowired
-//	private QnaMapper qnaMapper;
-//	
-//	
-//	private QnaVO qnaVO;
+	@Autowired
+	private QnaMapper qnaMapper;
+	
+	
+	private QnaVO qnaVO;
 //	
 //	@BeforeAll
 //	static void befoAll() {
@@ -55,16 +59,15 @@ class QnaMapperTest {
 //	void test() throws Exception {
 //	}
 //	
-//	@Test
-//	void test2() throws Exception {
-//		for(int i=0; i<100; i++) {
-//			qnaVO = new QnaVO();
-//			qnaVO.setTitle("title"+i);
-//			qnaVO.setWriter("writer"+i);
-//			qnaVO.setContents("contents"+i);
-//			int result = qnaMapper.setOne(qnaVO);
-//			
-//		}
-//	}
+	@Test
+	void test2() throws Exception {
+			qnaVO = new QnaVO();
+			qnaVO.setTitle("title");
+			qnaVO.setWriter("writer");
+			qnaVO.setContents("contents");
+			int result = qnaMapper.setOne(qnaVO);
+			assertEquals(1, result);
+			
+		}
 
 }
