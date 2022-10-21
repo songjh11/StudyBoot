@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+		    
+		 <mapper namespace="com.iu.home.board.qna.QnaMapper">
+ 		 	<select id="getList" parameterType="Pager"  resultType="QnaVO">
+		 		SELECT * FROM QNA 
+				WHERE TITLE LIKE CONCAT('%',#{search},'%')
+				ORDER BY NUM DESC limit #{startRow}, #{perPage};
+		 	</select>
+		 	
+		 	<insert id="setOne" parameterType="QnaVO" useGeneratedKeys="true" keyProperty="num">
+		 		INSERT INTO QNA 
+				VALUES (0, #{writer}, #{title}, #{contents}, 0, sysdate(), 0, 0, 0);
+		 	</insert>
+		 	
+		 	<insert id="setFileAdd" parameterType="QnaFileVO">
+		 		INSERT INTO QNAFILES
+		 		VALUES (0, #{num}, #{fileName}, #{oriName});
+		 	</insert>
+		 	
+		 	<select id="getOne" parameterType="QnaVO" resultMap="getOneResult">
+		 		SELECT * FROM
+		 		QNA Q
+		 		LEFT JOIN
+		 		QNAFILES QF
+		 		ON Q.NUM = QF.NUM
+		 		WHERE Q.NUM = #{num}
+		 		ORDER BY Q.NUM DESC
+		 	</select>
+		 	
+		 	<resultMap type="QnaVO" id="getOneResult">
+		 		<id column="NUM" property="num"/>
+		 		<result column="TITLE" property="title"/>
+		 		<result column="WRITER" property="writer"/>
+		 		<result column="CONTENTS" property="contents"/>
+		 		<result column="HIT" property="hit"/>
+		 		<result column="REGDATE" property="regDate"/>
+		 		<result column="REF" property="ref"/>
+		 		<result column="DEPTH" property="depth"/>
+		 		<result column="STEP" property="step"/>
+		 		<collection property="qf" javaType="List" ofType="QnaFileVO">
+		 			<id column="FILENUM" property="fileNum"/>
+		 			<result column="NUM" property="num"/>
+		 			<result column="FILENAME" property="fileName"/>
+		 			<result column="ORINAME" property="oriName"/>
+		 		</collection> 
+		 	</resultMap>
+		 	
+		 </mapper>
